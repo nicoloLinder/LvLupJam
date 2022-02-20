@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: b69fba39a771044edb3e78da3cb66bc5
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Bullate
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 7a1cb091e443843a0b342bd4f403fadb, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

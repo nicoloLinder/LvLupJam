@@ -7,6 +7,6 @@ public class GameOverUI : UI
 
     public void SetWinnerName(string winner)
     {
-        text.text = $"winner is {winner}";
+        text.text = $"{winner} is victorious";
     }
 }

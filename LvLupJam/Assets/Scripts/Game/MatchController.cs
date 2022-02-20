@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class MatchController : MonoBehaviour
 {
@@ -11,10 +12,17 @@ public class MatchController : MonoBehaviour
 
     [SerializeField] private UI mainMenu;
     [SerializeField] private UI gameMenu;
+    [SerializeField] private RoundUI roundMenu;
     [SerializeField] private GameOverUI gameOverMenu;
-    
+    [SerializeField] private Animator cameraAnimator;
+
     private static MatchController _instance;
     private List<CarController> _carControllers;
+    
+   [SerializeField] private List<Transform> demoCarControllers;
+   
+   [SerializeField] private AudioSource crashFinalAudio;
+    
 
     public static MatchController Instance
     {
@@ -32,35 +40,84 @@ public class MatchController : MonoBehaviour
         }
     }
 
+    private void ToggleDemo(bool active)
+    {
+        foreach (Transform demoCarController in demoCarControllers)
+        {
+            demoCarController.gameObject.SetActive(active);
+        }
+    }
+
     private void Start()
     {
+        Application.targetFrameRate = 60;
         _carControllers = new List<CarController>();
         Reset();
     }
 
-    void GameOver()
+    void RoundOver()
     {
-        gameOverMenu.SetWinnerName(_carControllers[0].name);
-        gameOverMenu.Show();
-        mainMenu.Hide();
-        gameMenu.Hide();
+        crashFinalAudio.Play();
+        cameraAnimator.SetTrigger("ZoomOut");
+        ActivateUI(UIsAvailable.RoundMenu);
+        roundMenu.SetRoundWinner(_carControllers[0].PlayerNumber);
+    }
+
+    public void GameOver(int winner)
+    {
+        gameOverMenu.SetWinnerName($"Player {winner}");
+        ActivateUI(UIsAvailable.GameOverMenu);
+        ToggleDemo(true);
     }
 
     public void Reset()
     {
         ClearGame();
-        gameOverMenu.Hide();
-        mainMenu.Show();
-        gameMenu.Hide();
+        ActivateUI(UIsAvailable.MainMenu);
     }
 
     public void StartGame()
     {
+        cameraAnimator.SetTrigger("ZoomIn");
         Reset();
         SpawnCars();
+        ActivateUI(UIsAvailable.GameMenu);
+        Dome.Instance.DomeStart();
+        ToggleDemo(false);
+    }
+    
+    public enum UIsAvailable
+    {
+        MainMenu,
+        GameMenu,
+        RoundMenu,
+        GameOverMenu
+    }
+
+    public void ActivateUI(UIsAvailable uIsAvailable)
+    {
         mainMenu.Hide();
-        gameMenu.Show();
+        gameMenu.Hide();
         gameOverMenu.Hide();
+        roundMenu.Hide();
+        
+        switch (uIsAvailable)
+        {
+            case UIsAvailable.MainMenu:
+                mainMenu.Show();
+                break;
+            case UIsAvailable.GameMenu:
+                gameMenu.Show();
+                break;
+            case UIsAvailable.RoundMenu:
+                roundMenu.Show();
+                break;
+            case UIsAvailable.GameOverMenu:
+                gameOverMenu.Show();
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(uIsAvailable), uIsAvailable, null);
+        }
     }
 
     private void ClearGame()
@@ -84,7 +141,9 @@ public class MatchController : MonoBehaviour
         _carControllers.Remove(carController);
         if (_carControllers.Count == 1)
         {
-            GameOver();
+            RoundOver();
         }
     }
+
+   
 }

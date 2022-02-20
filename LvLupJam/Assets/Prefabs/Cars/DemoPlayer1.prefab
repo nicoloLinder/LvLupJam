@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &4139635947594106471
+--- !u!1001 &4865650693701165322
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -52,24 +52,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 340798869739065628, guid: 01e7ec0d3264c4896987f499c5920be6, type: 3}
-      propertyPath: movement.m_SingletonActionBindings.Array.data[1].m_Path
-      value: <Keyboard>/upArrow
-      objectReference: {fileID: 0}
-    - target: {fileID: 340798869739065628, guid: 01e7ec0d3264c4896987f499c5920be6, type: 3}
-      propertyPath: movement.m_SingletonActionBindings.Array.data[2].m_Path
-      value: <Keyboard>/downArrow
-      objectReference: {fileID: 0}
-    - target: {fileID: 340798869739065628, guid: 01e7ec0d3264c4896987f499c5920be6, type: 3}
-      propertyPath: movement.m_SingletonActionBindings.Array.data[3].m_Path
-      value: <Keyboard>/leftArrow
-      objectReference: {fileID: 0}
-    - target: {fileID: 340798869739065628, guid: 01e7ec0d3264c4896987f499c5920be6, type: 3}
-      propertyPath: movement.m_SingletonActionBindings.Array.data[4].m_Path
-      value: <Keyboard>/rightArrow
+      propertyPath: demoMode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 340798869739065629, guid: 01e7ec0d3264c4896987f499c5920be6, type: 3}
       propertyPath: m_Name
-      value: Car Variant UDLR
+      value: DemoPlayer1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 01e7ec0d3264c4896987f499c5920be6, type: 3}
